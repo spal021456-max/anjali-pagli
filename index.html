@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Sachin ❤️ Sonam</title>
+
+<!-- Confetti Library -->
+<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+<style>
+    body {
+        margin: 0;
+        font-family: 'Segoe UI', sans-serif;
+        background: linear-gradient(to bottom right, #ff758c, #ff7eb3);
+        color: white;
+        text-align: center;
+        overflow-x: hidden;
+    }
+
+    .page {
+        display: none;
+        padding: 30px 15px;
+        min-height: 100vh;
+        opacity: 0;
+        transition: opacity 1s ease;
+    }
+
+    .page.active {
+        display: block;
+        opacity: 1;
+    }
+
+    h1 { font-size: 2.6em; }
+    h2 { font-weight: normal; }
+    p { font-size: 1.25em; line-height: 1.6; margin: 20px 0; }
+
+    img {
+        width: 85%;
+        max-width: 350px;
+        border-radius: 20px;
+        box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+        margin: 20px 0;
+    }
+
+    button {
+        padding: 12px 24px;
+        font-size: 1.1em;
+        border-radius: 25px;
+        border: none;
+        cursor: pointer;
+        margin: 12px;
+    }
+
+    .next-btn { background: #08d9d6; color: black; }
+    .yes { background: #ff2e63; color: white; }
+    .no-btn {
+        background: #08d9d6;
+        color: black;
+        position: relative;
+        transition: transform 0.2s ease;
+    }
+
+    /* Falling emojis */
+    .emoji {
+        position: fixed;
+        top: -10px;
+        font-size: 22px;
+        animation: fall linear infinite;
+        z-index: 1;
+    }
+
+    @keyframes fall {
+        to { transform: translateY(110vh); }
+    }
+</style>
+</head>
+
+<body>
+
+<!-- PAGE 1 : Welcome -->
+<div class="page active" id="page1">
+    <h1>Welcome Sonam 🌸</h1>
+    <p>
+        Ek chhoti si journey hai…<br>
+        jo dil se shuru hoti hai 💖
+    </p>
+    <button class="next-btn" onclick="nextPage(2)">Continue ➡️</button>
+</div>
+
+<!-- PAGE 2 : Joke -->
+<div class="page" id="page2">
+    <h1>Thoda sa fun 😄</h1>
+    <p>
+        "Tumhare smile ka prescription kya hai? 💊<br>
+        Kyunki har baar dekh ke heart rush ho jaata hai!"
+    </p>
+    <button class="next-btn" onclick="nextPage(3)">Next ➡️</button>
+</div>
+
+<!-- PAGE 3 : Emotional -->
+<div class="page" id="page3">
+    <h1>From my heart ❤️</h1>
+    <p>
+        Jab se tum meri zindagi ka hissa bani ho,<br>
+        har cheez aur bhi khoobsurat lagne lagi hai ✨
+    </p>
+    <button class="next-btn" onclick="nextPage(4)">Continue ➡️</button>
+</div>
+
+<!-- PAGE 4 : PROPOSAL -->
+<div class="page" id="page4">
+    <h1>Sachin ❤️ Sonam</h1>
+    <h2>Ek chhoti si love story…</h2>
+
+    <img src="couple.jpg" alt="Sachin and Sonam">
+
+    <p>
+        Tumhari muskurahat meri duniya hai 💕<br>
+        Aur main chahta hoon ki har kal tumhare saath ho.
+    </p>
+
+    <button class="yes" onclick="accepted()">Yes 💖</button>
+    <button class="no-btn" onmouseover="runAway(this)" onclick="runAway(this)">No 🙈</button>
+
+    <h2 style="margin-top:30px;">
+        meri pyari Sonam 🌹<br>
+        will you be my valentine 💖
+    </h2>
+
+    <button class="next-btn" onclick="nextPage(5)">One last thing 😊 ➡️</button>
+</div>
+
+<!-- PAGE 5 : Your Photo -->
+<div class="page" id="page5">
+    <h1>Just Me 😊</h1>
+    <img src="sachin.jpg" alt="Sachin">
+    <p>
+        Ye main hoon…<br>
+        hamesha tumhare saath chalne ke liye ❤️
+    </p>
+</div>
+
+<!-- Background Music -->
+<!-- Background Music -->
+<iframe
+    width="0"
+    height="0"
+    src="https://www.youtube.com/embed/lCOF9LN_Zxs?autoplay=1&loop=1&playlist=lCOF9LN_Zxs"
+    allow="autoplay">
+</iframe>
+
+
+<script>
+    function nextPage(num) {
+        document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+        document.getElementById('page' + num).classList.add('active');
+    }
+
+    function accepted() {
+        // CONFETTI BLAST 🎉
+        confetti({ particleCount: 200, spread: 90, origin: { y: 0.6 } });
+        confetti({ particleCount: 120, angle: 60, spread: 70, origin: { x: 0 } });
+        confetti({ particleCount: 120, angle: 120, spread: 70, origin: { x: 1 } });
+
+        setTimeout(() => {
+            alert("Yaaay! 💕 Sachin & Sonam forever 💍❤️");
+        }, 600);
+    }
+
+    function runAway(btn) {
+        btn.style.transform =
+            `translate(${Math.random()*220-110}px, ${Math.random()*220-110}px)`;
+    }
+
+    // Floating emojis animation
+    const emojis = ["❤️","💖","🌹","😍"];
+    setInterval(() => {
+        const e = document.createElement("div");
+        e.className = "emoji";
+        e.innerHTML = emojis[Math.floor(Math.random()*emojis.length)];
+        e.style.left = Math.random()*100 + "vw";
+        e.style.animationDuration = (3 + Math.random()*5) + "s";
+        document.body.appendChild(e);
+        setTimeout(() => e.remove(), 8000);
+    }, 350);
+</script>
+
+</body>
+</html>
