@@ -60,7 +60,6 @@
         transition: transform 0.2s ease;
     }
 
-    /* Falling emojis */
     .emoji {
         position: fixed;
         top: -10px;
@@ -77,102 +76,78 @@
 
 <body>
 
-<!-- PAGE 1 : Welcome -->
+<!-- 🔊 BACKGROUND MUSIC -->
+<audio id="bgMusic" loop>
+    <source src="song.mp3" type="audio/mpeg">
+</audio>
+
+<!-- PAGE 1 -->
 <div class="page active" id="page1">
     <h1>Welcome Sonam 🌸</h1>
-    <p>
-        Ek chhoti si journey hai…<br>
-        jo dil se shuru hoti hai 💖
-    </p>
-    <button class="next-btn" onclick="nextPage(2)">Continue ➡️</button>
+    <p>Ek chhoti si journey hai…<br>jo dil se shuru hoti hai 💖</p>
+    <button class="next-btn" onclick="playMusic(); nextPage(2)">Continue ➡️</button>
 </div>
 
-<!-- PAGE 2 : Joke -->
+<!-- PAGE 2 -->
 <div class="page" id="page2">
     <h1>Thoda sa fun 😄</h1>
-    <p>
-        "Tumhare smile ka prescription kya hai? 💊<br>
-        Kyunki har baar dekh ke heart rush ho jaata hai!"
-    </p>
-    <button class="next-btn" onclick="nextPage(3)">Next ➡️</button>
+    <p>"Tumhare smile ka prescription kya hai? 💊<br>Kyunki har baar dekh ke heart rush ho jaata hai!"</p>
+    <button class="next-btn" onclick="playMusic(); nextPage(3)">Next ➡️</button>
 </div>
 
-<!-- PAGE 3 : Emotional -->
+<!-- PAGE 3 -->
 <div class="page" id="page3">
     <h1>From my heart ❤️</h1>
-    <p>
-        Jab se tum meri zindagi ka hissa bani ho,<br>
-        har cheez aur bhi khoobsurat lagne lagi hai ✨
-    </p>
-    <button class="next-btn" onclick="nextPage(4)">Continue ➡️</button>
+    <p>Jab se tum meri zindagi ka hissa bani ho,<br>har cheez aur bhi khoobsurat lagne lagi hai ✨</p>
+    <button class="next-btn" onclick="playMusic(); nextPage(4)">Continue ➡️</button>
 </div>
 
-<!-- PAGE 4 : PROPOSAL -->
+<!-- PAGE 4 -->
 <div class="page" id="page4">
     <h1>Sachin ❤️ Sonam</h1>
     <h2>Ek chhoti si love story…</h2>
 
-    <img src="https://raw.githubusercontent.com/spal021456-max/anjali-pagli/main/couple.jpeg" alt="Sachin and Sonam">
+    <img src="https://raw.githubusercontent.com/spal021456-max/anjali-pagli/main/couple.jpeg">
 
+    <p>Tumhari muskurahat meri duniya hai 💕<br>Aur main chahta hoon ki har kal tumhare saath ho.</p>
 
-    <p>
-        Tumhari muskurahat meri duniya hai 💕<br>
-        Aur main chahta hoon ki har kal tumhare saath ho.
-    </p>
+    <button class="yes" onclick="playMusic(); accepted()">Yes 💖</button>
+    <button class="no-btn" onmouseover="runAway(this)">No 🙈</button>
 
-    <button class="yes" onclick="accepted()">Yes 💖</button>
-    <button class="no-btn" onmouseover="runAway(this)" onclick="runAway(this)">No 🙈</button>
+    <h2>meri pyari Sonam 🌹<br>will you be my valentine 💖</h2>
 
-    <h2 style="margin-top:30px;">
-        meri pyari Sonam 🌹<br>
-        will you be my valentine 💖
-    </h2>
-
-    <button class="next-btn" onclick="nextPage(5)">One last thing 😊 ➡️</button>
+    <button class="next-btn" onclick="playMusic(); nextPage(5)">One last thing 😊 ➡️</button>
 </div>
 
-<!-- PAGE 5 : Your Photo -->
+<!-- PAGE 5 -->
 <div class="page" id="page5">
     <h1>Just Me 😊</h1>
-    <img src="https://raw.githubusercontent.com/spal021456-max/anjali-pagli/main/sachin.jpeg" alt="Sachin">
-
-    <p>
-        Ye main hoon…<br>
-        hamesha tumhare saath chalne ke liye ❤️
-    </p>
+    <img src="https://raw.githubusercontent.com/spal021456-max/anjali-pagli/main/sachin.jpeg">
+    <p>Ye main hoon…<br>hamesha tumhare saath chalne ke liye ❤️</p>
 </div>
 
-<!-- Background Music -->
-<!-- Background Music -->
-<audio autoplay loop>
-    <source src="https://cdn.pixabay.com/audio/2022/03/15/audio_4f8f6b84c6.mp3" type="audio/mpeg">
-</audio>
-
-
-
 <script>
+    function playMusic() {
+        const music = document.getElementById("bgMusic");
+        if (music && music.paused) {
+            music.play().catch(()=>{});
+        }
+    }
+
     function nextPage(num) {
         document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
         document.getElementById('page' + num).classList.add('active');
     }
 
     function accepted() {
-        // CONFETTI BLAST 🎉
         confetti({ particleCount: 200, spread: 90, origin: { y: 0.6 } });
-        confetti({ particleCount: 120, angle: 60, spread: 70, origin: { x: 0 } });
-        confetti({ particleCount: 120, angle: 120, spread: 70, origin: { x: 1 } });
-
-        setTimeout(() => {
-            alert("Yaaay! 💕 Sachin & Sonam forever 💍❤️");
-        }, 600);
+        setTimeout(() => alert("Yaaay! 💕 Sachin & Sonam forever 💍❤️"), 500);
     }
 
     function runAway(btn) {
-        btn.style.transform =
-            `translate(${Math.random()*220-110}px, ${Math.random()*220-110}px)`;
+        btn.style.transform = `translate(${Math.random()*200-100}px, ${Math.random()*200-100}px)`;
     }
 
-    // Floating emojis animation
     const emojis = ["❤️","💖","🌹","😍"];
     setInterval(() => {
         const e = document.createElement("div");
@@ -187,5 +162,3 @@
 
 </body>
 </html>
-
-
