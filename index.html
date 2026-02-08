@@ -77,7 +77,7 @@
 <body>
 
 <!-- 🔊 BACKGROUND MUSIC -->
-<audio id="bgMusic" loop>
+<audio id="bgMusic" loop preload="auto">
     <source src="song.mp3" type="audio/mpeg">
 </audio>
 
@@ -85,21 +85,27 @@
 <div class="page active" id="page1">
     <h1>Welcome Sonam 🌸</h1>
     <p>Ek chhoti si journey hai…<br>jo dil se shuru hoti hai 💖</p>
-    <button class="next-btn" onclick="playMusic(); nextPage(2)">Continue ➡️</button>
+
+    <!-- 🔑 IMPORTANT BUTTON -->
+    <button class="next-btn" onclick="startMusic()">Tap to start music 🎶</button><br>
+
+    <button class="next-btn" onclick="nextPage(2)">Continue ➡️</button>
 </div>
 
 <!-- PAGE 2 -->
 <div class="page" id="page2">
     <h1>Thoda sa fun 😄</h1>
-    <p>"Tumhare smile ka prescription kya hai? 💊<br>Kyunki har baar dekh ke heart rush ho jaata hai!"</p>
-    <button class="next-btn" onclick="playMusic(); nextPage(3)">Next ➡️</button>
+    <p>"Tumhare smile ka prescription kya hai? 💊<br>
+    Kyunki har baar dekh ke heart rush ho jaata hai!"</p>
+    <button class="next-btn" onclick="nextPage(3)">Next ➡️</button>
 </div>
 
 <!-- PAGE 3 -->
 <div class="page" id="page3">
     <h1>From my heart ❤️</h1>
-    <p>Jab se tum meri zindagi ka hissa bani ho,<br>har cheez aur bhi khoobsurat lagne lagi hai ✨</p>
-    <button class="next-btn" onclick="playMusic(); nextPage(4)">Continue ➡️</button>
+    <p>Jab se tum meri zindagi ka hissa bani ho,<br>
+    har cheez aur bhi khoobsurat lagne lagi hai ✨</p>
+    <button class="next-btn" onclick="nextPage(4)">Continue ➡️</button>
 </div>
 
 <!-- PAGE 4 -->
@@ -109,14 +115,15 @@
 
     <img src="https://raw.githubusercontent.com/spal021456-max/anjali-pagli/main/couple.jpeg">
 
-    <p>Tumhari muskurahat meri duniya hai 💕<br>Aur main chahta hoon ki har kal tumhare saath ho.</p>
+    <p>Tumhari muskurahat meri duniya hai 💕<br>
+    Aur main chahta hoon ki har kal tumhare saath ho.</p>
 
-    <button class="yes" onclick="playMusic(); accepted()">Yes 💖</button>
+    <button class="yes" onclick="accepted()">Yes 💖</button>
     <button class="no-btn" onmouseover="runAway(this)">No 🙈</button>
 
     <h2>meri pyari Sonam 🌹<br>will you be my valentine 💖</h2>
 
-    <button class="next-btn" onclick="playMusic(); nextPage(5)">One last thing 😊 ➡️</button>
+    <button class="next-btn" onclick="nextPage(5)">One last thing 😊 ➡️</button>
 </div>
 
 <!-- PAGE 5 -->
@@ -127,37 +134,43 @@
 </div>
 
 <script>
-    function playMusic() {
-        const music = document.getElementById("bgMusic");
-        if (music && music.paused) {
-            music.play().catch(()=>{});
-        }
-    }
+let musicStarted = false;
 
-    function nextPage(num) {
-        document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-        document.getElementById('page' + num).classList.add('active');
-    }
+function startMusic() {
+    const music = document.getElementById("bgMusic");
+    music.volume = 0.7;
+    music.play().then(() => {
+        musicStarted = true;
+    }).catch(() => {
+        alert("Please tap once more to start music 🎶");
+    });
+}
 
-    function accepted() {
-        confetti({ particleCount: 200, spread: 90, origin: { y: 0.6 } });
-        setTimeout(() => alert("Yaaay! 💕 Sachin & Sonam forever 💍❤️"), 500);
-    }
+function nextPage(num) {
+    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+    document.getElementById('page' + num).classList.add('active');
+}
 
-    function runAway(btn) {
-        btn.style.transform = `translate(${Math.random()*200-100}px, ${Math.random()*200-100}px)`;
-    }
+function accepted() {
+    confetti({ particleCount: 200, spread: 90, origin: { y: 0.6 } });
+    setTimeout(() => alert("Yaaay! 💕 Sachin & Sonam forever 💍❤️"), 500);
+}
 
-    const emojis = ["❤️","💖","🌹","😍"];
-    setInterval(() => {
-        const e = document.createElement("div");
-        e.className = "emoji";
-        e.innerHTML = emojis[Math.floor(Math.random()*emojis.length)];
-        e.style.left = Math.random()*100 + "vw";
-        e.style.animationDuration = (3 + Math.random()*5) + "s";
-        document.body.appendChild(e);
-        setTimeout(() => e.remove(), 8000);
-    }, 350);
+function runAway(btn) {
+    btn.style.transform =
+        `translate(${Math.random()*200-100}px, ${Math.random()*200-100}px)`;
+}
+
+const emojis = ["❤️","💖","🌹","😍"];
+setInterval(() => {
+    const e = document.createElement("div");
+    e.className = "emoji";
+    e.innerHTML = emojis[Math.floor(Math.random()*emojis.length)];
+    e.style.left = Math.random()*100 + "vw";
+    e.style.animationDuration = (3 + Math.random()*5) + "s";
+    document.body.appendChild(e);
+    setTimeout(() => e.remove(), 8000);
+}, 350);
 </script>
 
 </body>
